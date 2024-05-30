@@ -21,4 +21,15 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+    protected $listen = [
+        'App\Events\UserFollowed' => [
+            'App\Listeners\SendUserFollowedNotification',
+        ],
+        'App\Events\PostCommented' => [
+            'App\Listeners\SendPostCommentedNotification',
+        ],
+        'App\Events\PostLiked' => [
+            'App\Listeners\SendPostLikedNotification',
+        ],
+    ];
 }

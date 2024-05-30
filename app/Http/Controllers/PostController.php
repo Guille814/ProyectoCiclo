@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Like;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Group;
 
 class PostController extends Controller
 {
@@ -15,35 +18,78 @@ class PostController extends Controller
 
     // Método para almacenar un nuevo post en la base de datos
     public function store(Request $request)
+{
+    $request->validate([
+        'texto' => 'required|max:250',
+        'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'video_url' => 'nullable|url',
+    ]);
+
+    $post = new Post();
+    $post->texto = $request->texto;
+    $post->user_id = auth()->id();
+
+    if ($request->hasFile('imagen')) {
+        $imagenPath = $request->file('imagen')->store('public/imagenes');
+        $post->imagen_url = str_replace('public/', 'storage/', $imagenPath);
+    }
+
+    $post->video_url = $request->video_url;
+
+    if ($request->has('group_id')) {
+        $post->group_id = $request->input('group_id');
+    }
+
+    $post->save();
+
+    return redirect()->back()->with('success', 'Post creado correctamente.');
+}
+
+    public function edit($id)
     {
-        // Validar los datos del formulario
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
+    }
+
+
+
+    public function update(Request $request, $id)
+    {
+        $post = Post::find($id);
+
         $request->validate([
             'texto' => 'required|max:250',
             'imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'video_url' => 'nullable|url',
         ]);
 
-        // Crear un nuevo post
-        $post = new Post();
         $post->texto = $request->texto;
 
-        // Obtener el user_id del usuario autenticado y asignarlo al post
-        $post->user_id = auth()->id();
-
-
-        // Manejar la subida de imágenes si existe
+        // Actualizar la imagen si se proporciona
         if ($request->hasFile('imagen')) {
             $imagenPath = $request->file('imagen')->store('public/imagenes');
             $post->imagen_url = str_replace('public/', 'storage/', $imagenPath);
         }
 
-        // Guardar la URL del video si existe
         $post->video_url = $request->video_url;
 
-        // Guardar el post en la base de datos
         $post->save();
 
-        // Redirigir de vuelta con un mensaje de éxito
-        return redirect()->back()->with('success', 'Post creado correctamente.');
+        return redirect()->route('perfil')->with('success', 'Post actualizado correctamente.');
+    }
+
+    // Método para eliminar un post de la base de datos
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->route('perfil')->with('success', 'Post eliminado correctamente.');
+    }
+
+
+    public function confirmDelete($id)
+    {
+        $post = Post::find($id);
+        return view('posts.confirmDelete', compact('post'));
     }
 }

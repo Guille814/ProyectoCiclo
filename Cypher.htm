@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="80MEK8bSv5seOJueoH5Iy2AwQ76KPfP19ZwYR36q">
+    <link rel="icon" href="Cypher_files/logo.png" type="image/png">
+    <title>Cypher</title>
+    <link rel="dns-prefetch" href="http://fonts.bunny.net/">
+    <link href="Cypher_files/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="Cypher_files/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="Cypher_files/select2.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="Cypher_files/bootstrap.min.css" rel="stylesheet">
+
+    <script type="module">
+    import RefreshRuntime from 'http://[::1]:5173/@react-refresh'
+    RefreshRuntime.injectIntoGlobalHook(window)
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+</script>    <script type="module" src="Cypher_files/client"></script><link rel="stylesheet" href="Cypher_files/app.css"><script type="module" src="Cypher_files/app.js"></script>
+    <script src="Cypher_files/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #111827;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+        }
+
+        .navbar {
+            background-color: #1f2937;
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .navbar-brand span {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .form-control {
+            background-color: #374151;
+            border: none;
+            color: white;
+        }
+
+        .form-control::placeholder {
+            color: #9ca3af;
+        }
+
+        .btn-search {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .navbar-center {
+                position: relative;
+                left: auto;
+                transform: none;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .navbar-center .form-control {
+                width: calc(100% - 50px);
+            }
+
+            .btn-search {
+                width: 50px;
+            }
+        }
+
+        /* Custom style for the select dropdown */
+        .custom-select-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .custom-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: #374151;
+            color: white;
+            padding-right: 30px;
+            /* Make space for the arrow */
+        }
+
+        .custom-select-arrow {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            margin-right: 5px;
+            /* Añadir margen a la derecha */
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid white;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+                <main class="py-4">
+                    </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <!--<script src="http://127.0.0.1:8000/js/app.js" defer></script>-->
+    <script src="Cypher_files/popper.min.js"></script>
+    <script src="Cypher_files/bootstrap.min.js"></script>
+    <script src="Cypher_files/select2.min.js"></script>
+
+    
+
+
+<div class="container" style="background-color: #111827; min-height: 100vh; margin-top: 10px;">
+    <div class="row justify-content-center">
+        <!-- Logo y nombre de la aplicación fuera del cuadro del formulario -->
+        <div class="text-center mb-4">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="Cypher_files/logo.png" alt="Logo CYPHER" style="width: 80px; height: 80px;">
+                <h2 style="color: white; margin-left: 20px; font-size: 2.5rem; font-weight: bold;">CYPHER</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card" style="border-radius: 10px; background-color: #1f2937; border: 1px solid #4b5563;">
+                <div class="card-body" style="border-radius: 15px;">
+                    <form method="POST" action="http://127.0.0.1:8000/login">
+                        <input type="hidden" name="_token" value="80MEK8bSv5seOJueoH5Iy2AwQ76KPfP19ZwYR36q" autocomplete="off">                        <h3 class="text-center mb-4" style="color: white; font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem;margin-top:10px;">
+                            Inicia sesión con tu cuenta
+                        </h3>
+
+                        <div class="mb-4 text-start" style="margin-left: 1rem; margin-right: 1rem;">
+                            <label for="email" class="form-label" style="color: white; font-size: 1.0rem;">Email Address</label>
+                            <input id="email" type="email" class="form-control " name="email" value="guilleibannez@gmail.com" required="" autocomplete="email" autofocus="" placeholder="nombre@correo.com" style="background-color: #374151; color: white; border: none; padding: 0.75rem; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                                    </div>
+
+                        <div class="mb-4 text-start" style="margin-left: 1rem; margin-right: 1rem;">
+                            <label for="password" class="form-label" style="color: white; font-size: 1.0rem;">Password</label>
+                            <input id="password" type="password" class="form-control " name="password" required="" autocomplete="current-password" placeholder="••••••••" style="background-color: #374151; color: white; border: none; padding: 0.75rem; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                                    </div>
+<!--
+                        <div class="mb-3 d-flex justify-content-between" style="width: 90%; margin: 0 auto;">
+                            <div class="form-check" style="color: #6b7280; font-size: 0.9rem;">
+                                <input class="form-check-input" type="checkbox" name="remember" id="remember"  style="background-color: #111827; border-color: #111827;">
+                                <label class="form-check-label" for="remember" style="margin-left: 0.5rem;">
+                                    Remember Me
+                                </label>
+                            </div>
+                            <a class="text-sm font-medium" href="http://127.0.0.1:8000/password/reset" style="color: #3b82f6; font-weight: bold; text-decoration: none;">Forgot Your Password?</a>
+                        </div>
+-->
+                        <div class="mb-3 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary" style="width: 90%; background-color: #2563eb; border-color: #2563eb; padding: 0.75rem; font-size: 0.9rem;">
+                                Inicia Sesion
+                            </button>
+                        </div>
+
+                        <div class="mb-3 d-flex justify-content-between" style="width: 100%; margin: 0 auto;">
+                            <div class="form-check" style="color: #6b7280; font-size: 0.9rem;">
+                                ¿No tienes cuenta?
+                                <a class="text-sm font-medium" href="http://127.0.0.1:8000/register" style="color: #3b82f6; font-weight: bold; text-decoration: none; margin-left:3px;">Registrate</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></body></html>

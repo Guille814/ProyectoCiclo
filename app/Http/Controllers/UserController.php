@@ -87,7 +87,6 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        // Validación de los datos
         $request->validate([
             'email' => 'required|email',
             'username' => 'required|string|max:255',
@@ -98,27 +97,22 @@ class UserController extends Controller
             'soundcloud_url' => 'nullable|url',
             'youtube_url' => 'nullable|url',
             'apple_music_url' => 'nullable|url',
-            'imagen_perfil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Asegúrate de incluir la validación para la imagen
+            'imagen_perfil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         // Actualización de los datos del usuario
-        $userData = $request->except('imagen_perfil'); // Excluye la imagen del arreglo de datos a actualizar
+        $userData = $request->except('imagen_perfil');
         $user->update($userData);
 
-        // Manejar la imagen de perfil si se ha cargado
         if ($request->hasFile('imagen_perfil')) {
-            // Obtener el archivo cargado
             $imagen_perfil = $request->file('imagen_perfil');
 
-            // Almacenar la imagen en la ubicación deseada
             $ruta_imagen = $imagen_perfil->store('profile_pictures', 'public');
-
-            // Guardar la ruta de la imagen en la base de datos con la referencia a 'storage/'
             $user->imagen_perfil = 'storage/' . $ruta_imagen;
             $user->save();
         }
 
-        // Redireccionar al perfil del usuario
+
         return redirect()->route('perfil')->with('success', 'Perfil actualizado correctamente.');
     }
 

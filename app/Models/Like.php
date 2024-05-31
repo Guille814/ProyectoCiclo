@@ -14,13 +14,11 @@ class Like extends Model
         'post_id',
     ];
 
-    // Relación con el usuario que dio like
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Relación con el post que recibió el like
     public function post()
     {
         return $this->belongsTo(Post::class);

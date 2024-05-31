@@ -11,7 +11,6 @@ class ChatAdmin extends Model
 
     protected $fillable = ['user_id', 'message'];
 
-    // Relación con el administrador que envió el mensaje
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'user_id');

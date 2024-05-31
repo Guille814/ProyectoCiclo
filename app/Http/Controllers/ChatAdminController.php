@@ -21,7 +21,7 @@ class ChatAdminController extends Controller
     public function store(Request $request)
     {
         $message = new ChatAdmin();
-        $message->user_id = auth('admin')->id();  // Asegúrate de que se guarda user_id del admin autenticado
+        $message->user_id = auth('admin')->id();  
         $message->message = $request->input('message');
         $message->save();
 

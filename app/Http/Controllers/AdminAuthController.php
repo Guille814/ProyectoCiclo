@@ -19,7 +19,7 @@ class AdminAuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)) {
-            return redirect()->intended('admin/dashboard'); // Asegúrate de cambiar esta ruta a donde quieras dirigir a los administradores después del login.
+            return redirect()->intended('admin/dashboard'); 
         }
 
         return back()->withErrors(['email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.']);
@@ -39,7 +39,6 @@ class AdminAuthController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'fecha_nacimiento' => $request->fecha_nacimiento,
-            // Establece una imagen de perfil predeterminada si no se proporciona una
             'imagen_perfil' => $request->input('imagen_perfil', 'profile_pictures/default_profile_picture.png'),
             'biografia' => $request->biografia,
         ]);

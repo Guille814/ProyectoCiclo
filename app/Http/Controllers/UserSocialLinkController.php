@@ -18,7 +18,6 @@ class UserSocialLinkController extends Controller
         $user = auth()->user();
         $user->update($request->all());
 
-        // Asumiendo que recibes los datos en un array ['social_network' => 'url']
         foreach ($request->social_links as $network => $url) {
             $user->socialLinks()->updateOrCreate(
                 ['social_network' => $network],

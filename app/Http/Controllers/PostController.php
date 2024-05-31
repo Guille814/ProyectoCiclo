@@ -65,7 +65,6 @@ class PostController extends Controller
 
         $post->texto = $request->texto;
 
-        // Actualizar la imagen si se proporciona
         if ($request->hasFile('imagen')) {
             $imagenPath = $request->file('imagen')->store('public/imagenes');
             $post->imagen_url = str_replace('public/', 'storage/', $imagenPath);
@@ -78,7 +77,6 @@ class PostController extends Controller
         return redirect()->route('perfil')->with('success', 'Post actualizado correctamente.');
     }
 
-    // Método para eliminar un post de la base de datos
     public function destroy($id)
     {
         $post = Post::findOrFail($id);

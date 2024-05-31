@@ -173,6 +173,7 @@
                                 @if (Request::is('perfil'))
                                 <li><a href="#" class="dropdown-item" data-toggle="modal" data-target="#editProfileModal">Configuración</a></li>
                                 @endif
+                                <li><a class="dropdown-item" href="{{ route('app.info') }}">Información de la Aplicación</a></li>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

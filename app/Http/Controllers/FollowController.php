@@ -1,7 +1,5 @@
 <?php
 
-<?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -18,14 +16,13 @@ class FollowController extends Controller
         $follower->follows_id = $usuario->id;
         $follower->save();
 
-        // Disparar el evento con los objetos User correctos
         event(new UserFollowed(auth()->user(), $usuario));
 
         if (request()->ajax()) {
             return response()->json([
                 'success' => true,
                 'message' => 'Ahora estás siguiendo a ' . $usuario->username,
-                'followersCount' => $usuario->followers()->count() // Nuevo conteo de seguidores
+                'followersCount' => $usuario->followers()->count() 
             ]);
         }
 
@@ -44,7 +41,7 @@ class FollowController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Has dejado de seguir a ' . $usuario->username,
-                    'followersCount' => $usuario->followers()->count() // Nuevo conteo de seguidores
+                    'followersCount' => $usuario->followers()->count() 
                 ]);
             }
             return back()->with('success', 'Has dejado de seguir a ' . $usuario->username);

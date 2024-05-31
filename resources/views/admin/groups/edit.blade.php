@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Editar Grupo') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.group.update', $group->id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.groups.update', $group->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 

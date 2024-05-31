@@ -171,18 +171,25 @@ Route::get('/groups/{group}/members', [GroupController::class, 'getMembers']);
 
 Route::delete('/groups/{group}', [GroupController::class, 'destroy'])->name('groups.destroy');
 
-Route::get('/admin/groups', [GroupController::class, 'indexAdmin'])->name('admin.groups.index');
 
-Route::get('/admin/events', [EventController::class, 'indexAdmin'])->name('admin.events.index');
+// Rutas de administración de grupos
+Route::prefix('admin')->group(function () {
+    Route::get('/groups', [GroupController::class, 'adminIndex'])->name('admin.groups.index');
+    Route::get('/groups/create', [GroupController::class, 'adminCreate'])->name('admin.groups.create');
+    Route::post('/groups', [GroupController::class, 'adminStore'])->name('admin.groups.store');
+    Route::get('/groups/{id}/edit', [GroupController::class, 'adminEdit'])->name('admin.groups.edit');
+    Route::put('/groups/{id}', [GroupController::class, 'adminUpdate'])->name('admin.groups.update');
+    Route::delete('/groups/{id}', [GroupController::class, 'adminDestroy'])->name('admin.groups.destroy');
+});
 
-// Ruta para editar grupos
-Route::get('/admin/groups/{group}/edit', [GroupController::class, 'editAdmin'])->name('admin.groups.edit');
-Route::put('/admin/groups/{id}', [GroupController::class, 'updateAdmin'])->name('admin.group.update');
 
-Route::delete('/admin/groups/{group}', [GroupController::class, 'destroyAdmin'])->name('admin.groups.destroy');
-
+Route::get('/admin/events', [EventController::class, 'adminIndex'])->name('admin.events.index');
 Route::get('/admin/events/{id}/edit', [EventController::class, 'adminEdit'])->name('admin.events.edit');
 Route::put('/admin/events/{id}', [EventController::class, 'adminUpdate'])->name('admin.events.update');
 Route::delete('/admin/events/{id}', [EventController::class, 'adminDestroy'])->name('admin.events.destroy');
 
+Route::get('/info', [AdminController::class, 'info'])->name('admin.info');
 
+Route::get('/app-info', function () {
+    return view('app-info'); 
+})->name('app.info');

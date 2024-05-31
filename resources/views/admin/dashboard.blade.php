@@ -52,6 +52,15 @@
                                 </a>
                             </div>
                         </div>
+                        <!-- Botón de Información -->
+                        <div class="col-12 col-md-4 mb-3">
+                            <div class="card-body text-center p-4">
+                                <a href="{{ route('admin.info') }}" class="btn btn-info w-100 p-3" style="background-color: #17a2b8; border: none;">
+                                    <i class="fas fa-info-circle fa-2x mb-2"></i>
+                                    <div>Información</div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

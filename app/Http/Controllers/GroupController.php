@@ -136,36 +136,27 @@ class GroupController extends Controller
         return view('groups.lista', compact('groups')); // Asegúrate de que esta vista realmente existe
     }
 
-    public function indexAdmin()
+    public function adminIndex()
     {
         $groups = Group::all();
-        return view('admin.groups.lista', compact('groups'));
+        return view('admin.groups.index', compact('groups'));
     }
 
-    public function editAdmin($id)
+    public function adminCreate()
     {
-        $group = Group::findOrFail($id);
-        return view('admin.groups.edit', compact('group'));
+        return view('admin.groups.create');
     }
 
-    public function destroyAdmin($id)
-    {
-        $group = Group::findOrFail($id);
-        $group->delete();
-        return redirect()->route('admin.groups.lista')->with('success', 'Grupo eliminado con éxito');
-    }
-
-    public function updateAdmin(Request $request, $id)
+    public function adminStore(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',
-            'imagen_perfil' => 'nullable|image|max:2048', 
-            'banner_perfil' => 'nullable|image|max:2048'
+            'imagen_perfil' => 'nullable|image|max:2048',
+            'banner_perfil' => 'nullable|image|max:2048',
         ]);
 
-        $group = Group::findOrFail($id);
-
+        $group = new Group();
         $group->name = $request->name;
         $group->biography = $request->biography;
 
@@ -179,9 +170,52 @@ class GroupController extends Controller
             $group->banner_perfil = $path;
         }
 
-        $group->save(); 
+        $group->save();
 
-        return redirect()->route('admin.group.lista')->with('success', 'Grupo actualizado con éxito.');
+        return redirect()->route('admin.groups.index')->with('success', 'Grupo creado con éxito.');
+    }
+
+    public function adminEdit($id)
+    {
+        $group = Group::findOrFail($id);
+        return view('admin.groups.edit', compact('group'));
+    }
+
+    public function adminUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'biography' => 'nullable|string',
+            'imagen_perfil' => 'nullable|image|max:2048',
+            'banner_perfil' => 'nullable|image|max:2048',
+        ]);
+
+        $group = Group::findOrFail($id);
+        $group->name = $request->name;
+        $group->biography = $request->biography;
+
+        if ($request->hasFile('imagen_perfil')) {
+            $path = $request->imagen_perfil->store('public/groups');
+            $group->imagen_perfil = $path;
+        }
+
+        if ($request->hasFile('banner_perfil')) {
+            $path = $request->banner_perfil->store('public/groups');
+            $group->banner_perfil = $path;
+        }
+
+        $group->save();
+
+        return redirect()->route('admin.groups.index')->with('success', 'Grupo actualizado con éxito.');
+    }
+
+    public function adminDestroy($id)
+    {
+        $group = Group::findOrFail($id);
+        $group->delete();
+
+        return redirect()->route('admin.groups.index')->with('success', 'Grupo eliminado con éxito.');
     }
 }
+
 

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -114,41 +115,84 @@ class EventController extends Controller
 
         return redirect()->route('events.index')->with('success', 'Evento eliminado correctamente.');
     }
-
-    public function indexAdmin()
+    public function adminIndex()
     {
-        $events = Event::all(); // Recuperar todos los eventos
-        return view('admin.events.index', compact('events')); // Pasar eventos a la vista
+        $groups = Group::all();
+        return view('admin.groups.index', compact('groups'));
     }
+
+    public function adminCreate()
+    {
+        return view('admin.groups.create');
+    }
+
+    public function adminStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'biography' => 'nullable|string',
+            'imagen_perfil' => 'nullable|image|max:2048',
+            'banner_perfil' => 'nullable|image|max:2048',
+        ]);
+
+        $group = new Group();
+        $group->name = $request->name;
+        $group->biography = $request->biography;
+
+        if ($request->hasFile('imagen_perfil')) {
+            $path = $request->imagen_perfil->store('public/groups');
+            $group->imagen_perfil = $path;
+        }
+
+        if ($request->hasFile('banner_perfil')) {
+            $path = $request->banner_perfil->store('public/groups');
+            $group->banner_perfil = $path;
+        }
+
+        $group->save();
+
+        return redirect()->route('admin.groups.index')->with('success', 'Grupo creado con éxito.');
+    }
+
     public function adminEdit($id)
     {
-        $event = Event::findOrFail($id); // Asegúrate de que el evento exista
-        return view('admin.events.edit', compact('event'));
+        $group = Group::findOrFail($id);
+        return view('admin.groups.edit', compact('group'));
     }
 
     public function adminUpdate(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'event_date' => 'required|date',
-            'location' => 'required|string|max:255',
-            'image' => 'nullable|image|max:2048',
+            'biography' => 'nullable|string',
+            'imagen_perfil' => 'nullable|image|max:2048',
+            'banner_perfil' => 'nullable|image|max:2048',
         ]);
 
-        $event = Event::findOrFail($id);
-        $event->name = $request->name;
-        $event->description = $request->description;
-        $event->event_date = new Carbon($request->event_date);
-        $event->location = $request->location;
+        $group = Group::findOrFail($id);
+        $group->name = $request->name;
+        $group->biography = $request->biography;
 
-        if ($request->hasFile('image')) {
-            $path = $request->image->store('public/events');
-            $event->image = $path;
+        if ($request->hasFile('imagen_perfil')) {
+            $path = $request->imagen_perfil->store('public/groups');
+            $group->imagen_perfil = $path;
         }
 
-        $event->save();
+        if ($request->hasFile('banner_perfil')) {
+            $path = $request->banner_perfil->store('public/groups');
+            $group->banner_perfil = $path;
+        }
 
-        return redirect()->route('admin.events.index')->with('success', 'Evento actualizado con éxito.');
+        $group->save();
+
+        return redirect()->route('admin.groups.index')->with('success', 'Grupo actualizado con éxito.');
+    }
+
+    public function adminDestroy($id)
+    {
+        $group = Group::findOrFail($id);
+        $group->delete();
+
+        return redirect()->route('admin.groups.index')->with('success', 'Grupo eliminado con éxito.');
     }
 }
